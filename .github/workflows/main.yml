@@ -89,23 +89,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup SSH key
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
-          DOCKER_HOST: ssh://${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}
-        run: |
-          # Добавляем приватный ключ в агент
-          echo "$SSH_PRIVATE_KEY" > private_key
-          chmod 600 private_key
-          eval "$(ssh-agent -s)"
-
-          # Разблокируем ключ, используя пароль
-          echo "$SSH_PASSPHRASE" | ssh-add private_key
-
       - name: SSH into server and deploy
         run: |
-          ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
             cd /kittygram
             docker-compose pull
             docker-compose up -d --build
