@@ -12,8 +12,7 @@ services:
     env_file: .env
     depends_on:
       - postgres
-    command: ["./wait-for-it.sh", "postgres:5432", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
-    
+
   frontend:
     image: ivanbed/kittygram_frontend   
     volumes:

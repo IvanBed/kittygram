@@ -81,17 +81,6 @@ jobs:
           source: "docker-compose.production.yml"
           target: "./kittygram"
       
-      - name: Create .env file on server
-        uses: appleboy/ssh-action@v1.2.1
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> ./kittygram/.env
-            echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> ./kittygram/.env
-            echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> ./kittygram/.env
-      
       - name: Deploy application
         uses: appleboy/ssh-action@v1.2.1
         with:
