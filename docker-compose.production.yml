@@ -9,6 +9,7 @@ services:
     image: ivanbed/kittygram_backend   
     volumes:
       - media:/app/media
+      - static:/app/static/back
     env_file: .env
     depends_on:
       - postgres
@@ -16,7 +17,7 @@ services:
   frontend:
     image: ivanbed/kittygram_frontend   
     volumes:
-      - static:/app/static
+      - static:/app/static/front
     env_file: .env
 
   gateway:
