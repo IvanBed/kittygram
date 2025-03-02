@@ -78,7 +78,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml"
+          source: "docker-compose.production.yml"
           target: "./kittygram"
       
       - name: Create .env file on server
@@ -107,16 +107,16 @@ jobs:
             cd ./kittygram
 
             echo "Запускаем файл docker-compose"
-            docker compose -f docker-compose.yml pull
+            docker compose -f docker-compose.production.yml pull
 
             echo "Перезапускаем контенеры"
-            docker compose -f docker-compose.yml down
-            docker compose -f docker-compose.yml up -d
+            docker compose -f docker-compose.production.yml down
+            docker compose -f docker-compose.production.yml up -d
             
             echo "Выполняет миграции и сбор статики"
-            docker compose -f docker-compose.yml exec backend python manage.py migrate
-            docker compose -f docker-compose.yml exec backend python manage.py collectstatic
-            docker compose -f docker-compose.yml exec backend cp -r /app/collected_static/. /backend_static/static/
+            docker compose -f docker-compose.production.yml exec backend python manage.py migrate
+            docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
+            docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/static/
             docker image prune -f
   
  
