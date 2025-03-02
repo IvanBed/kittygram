@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip 
-          pip install flake8==6.0.0 flake8-isort==6.0.0
+          
    
   
   build-push:
@@ -88,8 +88,6 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" > ./kittygram/.env
-            echo "DEBUG=${{ secrets.DEBUG }}" >> ./kittygram/.env
             echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> ./kittygram/.env
             echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> ./kittygram/.env
             echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> ./kittygram/.env
