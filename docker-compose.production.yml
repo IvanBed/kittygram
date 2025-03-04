@@ -15,7 +15,8 @@ services:
       - postgres
 
   frontend:
-    image: ivanbed/kittygram_frontend   
+    image: ivanbed/kittygram_frontend 
+    command: cp -r /app/build/. /frontend_stat/
     volumes:
       - static:/frontend_stat
     env_file: .env
