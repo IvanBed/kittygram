@@ -10,7 +10,7 @@ services:
     build: ./backend
     volumes:
       - ./backend:/app
-      - static:/app/static
+      - static:/backend_stat
       - media:/app/media
     env_file: .env
     depends_on:
@@ -19,7 +19,7 @@ services:
   frontend:
     build: ./frontend
     volumes:
-      - static:/app/static
+      - static:/frontend_stat
     env_file: .env
 
   gateway:
